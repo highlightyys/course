@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neuedu.mapper.SelectionMapper" >
+  <resultMap id="BaseResultMap" type="com.neuedu.po.Selection" >
+    <id column="selid" property="selid" jdbcType="INTEGER" />
+    <result column="stuid" property="stuid" jdbcType="INTEGER" />
+    <result column="courseid" property="courseid" jdbcType="INTEGER" />
+    <result column="year" property="year" jdbcType="INTEGER" />
+    <result column="term" property="term" jdbcType="CHAR" />
+    <result column="grade" property="grade" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    selid, stuid, courseid, year, term, grade
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from selection
+    where selid = #{selid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from selection
+    where selid = #{selid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.neuedu.po.Selection" >
+    insert into selection (selid, stuid, courseid, 
+      year, term, grade)
+    values (#{selid,jdbcType=INTEGER}, #{stuid,jdbcType=INTEGER}, #{courseid,jdbcType=INTEGER}, 
+      #{year,jdbcType=INTEGER}, #{term,jdbcType=CHAR}, #{grade,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neuedu.po.Selection" >
+    insert into selection
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="selid != null" >
+        and selid,
+      </if>
+      <if test="stuid != null" >
+        stuid,
+      </if>
+      <if test="courseid != null" >
+        courseid,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+      <if test="term != null" >
+        term,
+      </if>
+      <if test="grade != null" >
+        grade,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="selid != null" >
+        #{selid,jdbcType=INTEGER},
+      </if>
+      <if test="stuid != null" >
+        #{stuid,jdbcType=INTEGER},
+      </if>
+      <if test="courseid != null" >
+        #{courseid,jdbcType=INTEGER},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="term != null" >
+        #{term,jdbcType=CHAR},
+      </if>
+      <if test="grade != null" >
+        #{grade,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.neuedu.po.Selection" >
+    update selection
+    <set >
+      <if test="stuid != null" >
+        stuid = #{stuid,jdbcType=INTEGER},
+      </if>
+      <if test="courseid != null" >
+        courseid = #{courseid,jdbcType=INTEGER},
+      </if>
+      <if test="year != null" >
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="term != null" >
+        term = #{term,jdbcType=CHAR},
+      </if>
+      <if test="grade != null" >
+        grade = #{grade,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where selid = #{selid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.neuedu.po.Selection" >
+    update selection
+    set stuid = #{stuid,jdbcType=INTEGER},
+      courseid = #{courseid,jdbcType=INTEGER},
+      year = #{year,jdbcType=INTEGER},
+      term = #{term,jdbcType=CHAR},
+      grade = #{grade,jdbcType=DOUBLE}
+    where selid = #{selid,jdbcType=INTEGER}
+  </update>
+</mapper>
